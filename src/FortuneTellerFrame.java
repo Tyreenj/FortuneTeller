@@ -24,8 +24,8 @@ public class FortuneTellerFrame extends JFrame {
 
     Random rnd;
 
-    String prevFortune = "";
-    String nextFortune = "";
+    int prevFortune = -1;
+    int nextFortune = -1;
 
     int width;
     int height;
@@ -50,10 +50,7 @@ public class FortuneTellerFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-    }
 
-    public void fortune()
-    {
         fortunes = new ArrayList<>();
         fortunes.add("You will pass your next exam!");
         fortunes.add("You will fail your class!");
@@ -69,11 +66,15 @@ public class FortuneTellerFrame extends JFrame {
         fortunes.add("Your boss will compliment your work… right after taking credit for it.");
 
         rnd = new Random();
-        do {
-            nextFortune = fortunes.get(rnd.nextInt(fortunes.size()));
-        } while (prevFortune.equals(nextFortune));
+    }
 
-        textField.append("\n" + nextFortune);
+    public void fortune()
+    {
+        do {
+            nextFortune = rnd.nextInt(fortunes.size());
+        } while (prevFortune == nextFortune);
+
+        textField.append("\n" + fortunes.get(nextFortune));
         prevFortune = nextFortune;
     }
 
